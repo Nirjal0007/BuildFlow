@@ -25,9 +25,9 @@ class ProjectRequest extends FormRequest
             'end_date' => ['nullable', 'date', 'after_or_equal:start_date'],
             'short_description' => ['nullable', 'string', 'max:500'],
             'description' => ['nullable', 'string'],
-            'featured_image' => [$projectId ? 'nullable' : 'required', 'image', 'max:4096'],
+            'featured_image' => [$projectId ? 'nullable' : 'required', 'image', 'max:51200'],
             'is_featured' => ['nullable', 'boolean'],
-            'gallery.*' => ['nullable', 'image', 'max:4096'],
+            'gallery.*' => ['nullable', 'image', 'max:51200'],
         ];
     }
 }

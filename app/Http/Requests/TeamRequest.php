@@ -18,7 +18,7 @@ class TeamRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'designation' => ['required', 'string', 'max:255'],
-            'photo' => [$memberId ? 'nullable' : 'required', 'image', 'max:4096'],
+            'photo' => [$memberId ? 'nullable' : 'required', 'image', 'max:51200'],
             'bio' => ['nullable', 'string'],
             'facebook_url' => ['nullable', 'url', 'max:255'],
             'twitter_url' => ['nullable', 'url', 'max:255'],

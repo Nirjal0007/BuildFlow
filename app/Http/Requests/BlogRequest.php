@@ -18,7 +18,7 @@ class BlogRequest extends FormRequest
         return [
             'category_id' => ['nullable', 'exists:categories,id'],
             'title' => ['required', 'string', 'max:255'],
-            'image' => [$blogId ? 'nullable' : 'required', 'image', 'max:4096'],
+            'image' => [$blogId ? 'nullable' : 'required', 'image', 'max:51200'],
             'excerpt' => ['nullable', 'string', 'max:500'],
             'content' => ['required', 'string'],
             'is_published' => ['nullable', 'boolean'],

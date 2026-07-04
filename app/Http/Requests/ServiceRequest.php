@@ -19,7 +19,7 @@ class ServiceRequest extends FormRequest
             'category_id' => ['nullable', 'exists:categories,id'],
             'title' => ['required', 'string', 'max:255'],
             'icon' => ['nullable', 'string', 'max:100'],
-            'image' => [$serviceId ? 'nullable' : 'required', 'image', 'max:4096'],
+            'image' => [$serviceId ? 'nullable' : 'required', 'image', 'max:51200'],
             'short_description' => ['nullable', 'string', 'max:500'],
             'description' => ['nullable', 'string'],
             'is_featured' => ['nullable', 'boolean'],
