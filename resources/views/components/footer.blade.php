@@ -5,7 +5,7 @@
         <div class="row g-4">
             <div class="col-lg-4 col-md-6">
                 <h4 class="fw-bold mb-3">
-                    <i class="bi bi-buildings-fill text-primary me-2"></i>Constructify
+                    <i class="bi bi-buildings-fill text-primary me-2"></i>BuildFlow
                 </h4>
                 <p class="text-secondary">
                     Building tomorrow's infrastructure today. Trusted construction partner since 1998,
@@ -70,7 +70,7 @@
         <hr class="border-secondary my-4">
 
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center text-secondary small">
-            <p class="mb-0">&copy; {{ date('Y') }} Constructify. All Rights Reserved.</p>
+            <p class="mb-0">&copy; {{ date('Y') }} BuildFlow. All Rights Reserved.</p>
             <div class="d-flex gap-3 mt-2 mt-md-0">
                 <a href="#" class="text-secondary text-decoration-none">Privacy Policy</a>
                 <a href="#" class="text-secondary text-decoration-none">Terms of Service</a>

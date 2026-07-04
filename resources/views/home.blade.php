@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <span class="section-title-eyebrow"><i class="bi bi-buildings me-1"></i> About Constructify</span>
+                    <span class="section-title-eyebrow"><i class="bi bi-buildings me-1"></i> About BuildFlow</span>
                     <h2 class="mt-2 mb-4">We Build With Precision, Passion &amp; Purpose</h2>
                     <p class="text-secondary mb-4">
                         Since 1998, we have been delivering world-class construction services across residential,

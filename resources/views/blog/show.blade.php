@@ -21,7 +21,7 @@
                     <img src="{{ $blog->image_url }}" alt="{{ $blog->title }}" class="img-fluid rounded shadow mb-4 w-100">
 
                     <div class="d-flex gap-3 mb-4 text-secondary small">
-                        <span><i class="bi bi-person"></i> {{ $blog->author?->name ?? 'Constructify Team' }}</span>
+                        <span><i class="bi bi-person"></i> {{ $blog->author?->name ?? 'BuildFlow Team' }}</span>
                         <span><i class="bi bi-calendar3"></i> {{ $blog->published_at?->format('M d, Y') }}</span>
                         <span><i class="bi bi-folder"></i> {{ $blog->category?->name ?? 'General' }}</span>
                     </div>

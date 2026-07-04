@@ -24,7 +24,7 @@
                     <span class="section-title-eyebrow">Who We Are</span>
                     <h2 class="mt-2 mb-4">Building Trust, One Project at a Time</h2>
                     <p class="text-secondary mb-4">
-                        Founded in 1998, Constructify has grown from a small residential contractor into a full-service
+                        Founded in 1998, BuildFlow has grown from a small residential contractor into a full-service
                         construction company handling residential, commercial, and infrastructure projects. Our mission
                         is simple: deliver quality work, on time and on budget, every time.
                     </p>

@@ -18,7 +18,7 @@
         <aside class="admin-sidebar text-white d-flex flex-column flex-shrink-0">
             <div class="px-4 py-4 border-bottom border-secondary border-opacity-25">
                 <a href="{{ route('admin.dashboard') }}" class="text-white text-decoration-none fw-bold fs-5 d-flex align-items-center">
-                    <i class="bi bi-buildings-fill text-primary me-2"></i> Constructify
+                    <i class="bi bi-buildings-fill text-primary me-2"></i> BuildFlow
                 </a>
                 <small class="text-secondary">Admin Panel</small>
             </div>

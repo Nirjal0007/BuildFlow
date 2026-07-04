@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Constructify') | Construction Company</title>
+    <title>@yield('title', 'BuildFlow') | Construction Company</title>
     <meta name="description" content="@yield('meta_description', 'Building tomorrow\'s infrastructure today. Trusted construction partner for residential, commercial, and infrastructure projects.')">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css">

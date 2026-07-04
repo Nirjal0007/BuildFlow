@@ -4,7 +4,7 @@
     <div class="container">
         <a class="navbar-brand d-flex align-items-center fw-bold fs-4" href="{{ route('home') }}">
             <i class="bi bi-buildings-fill text-primary me-2"></i>
-            Constructify
+            BuildFlow
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
