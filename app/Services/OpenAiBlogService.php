@@ -2,79 +2,121 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 use RuntimeException;
 
 class OpenAiBlogService
 {
     protected string $apiKey;
-
     protected string $model;
 
     public function __construct()
     {
-        $this->apiKey = config('services.openai.api_key');
-        $this->model = config('services.openai.model', 'gpt-4o-mini');
+        $this->apiKey = config('services.groq.api_key') ?? '';
+        $this->model = config('services.groq.model', 'llama-3.3-70b-versatile');
     }
 
-    /**
-     * Generate a full blog post (title, excerpt, content) from a topic.
-     *
-     * @return array{title: string, excerpt: string, content: string}
-     */
     public function generateBlogPost(string $topic, string $tone = 'professional'): array
     {
         if (empty($this->apiKey)) {
-            throw new RuntimeException('OpenAI API key is not configured. Set OPENAI_API_KEY in your .env file.');
+            throw new RuntimeException('Groq API key is not configured. Add GROQ_API_KEY to your .env file.');
         }
 
         $prompt = $this->buildPrompt($topic, $tone);
 
-        $response = Http::withToken($this->apiKey)
-            ->timeout(60)
-            ->post('https://api.openai.com/v1/chat/completions', [
-                'model' => $this->model,
-                'messages' => [
-                    [
-                        'role' => 'system',
-                        'content' => 'You are a professional content writer for a construction company website. '
-                            . 'Always respond with valid JSON only, no markdown code fences, matching this exact '
-                            . 'shape: {"title": string, "excerpt": string (max 160 chars), "content": string (HTML, '
-                            . 'using <h2>, <h3>, <p>, <ul> tags, 500-800 words)}.',
-                    ],
-                    [
-                        'role' => 'user',
-                        'content' => $prompt,
-                    ],
+        $payload = json_encode([
+            'model' => $this->model,
+            'messages' => [
+                [
+                    'role' => 'system',
+                    'content' => 'You are a professional construction industry blog writer. Always respond in the exact format requested.',
                 ],
-                'temperature' => 0.7,
-                'response_format' => ['type' => 'json_object'],
-            ]);
+                [
+                    'role' => 'user',
+                    'content' => $prompt,
+                ],
+            ],
+            'temperature' => 0.7,
+            'max_tokens' => 2048,
+        ]);
 
-        if ($response->failed()) {
-            Log::error('OpenAI blog generation failed', ['body' => $response->body()]);
-            throw new RuntimeException('Failed to generate blog content. Please try again.');
+        $ch = curl_init('https://api.groq.com/openai/v1/chat/completions');
+        curl_setopt_array($ch, [
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => $payload,
+            CURLOPT_HTTPHEADER => [
+                'Content-Type: application/json',
+                'Authorization: Bearer ' . $this->apiKey,
+            ],
+            CURLOPT_TIMEOUT => 60,
+        ]);
+
+        $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $curlError = curl_error($ch);
+        curl_close($ch);
+
+        if ($curlError) {
+            throw new RuntimeException('Network error contacting Groq API: ' . $curlError);
         }
 
-        $raw = $response->json('choices.0.message.content');
-        $decoded = json_decode($raw, true);
-
-        if (! is_array($decoded) || ! isset($decoded['title'], $decoded['content'])) {
-            throw new RuntimeException('Received an unexpected response format from the AI service.');
+        if ($httpCode !== 200) {
+            $error = json_decode($response, true);
+            $message = $error['error']['message'] ?? 'Unknown error from Groq API (HTTP ' . $httpCode . ')';
+            throw new RuntimeException('Groq API error: ' . $message);
         }
 
-        return [
-            'title' => $decoded['title'],
-            'excerpt' => $decoded['excerpt'] ?? '',
-            'content' => $decoded['content'],
-        ];
+        $data = json_decode($response, true);
+        $text = $data['choices'][0]['message']['content'] ?? '';
+
+        if (empty($text)) {
+            throw new RuntimeException('Groq returned an empty response. Please try again.');
+        }
+
+        return $this->parseResponse($text, $topic);
     }
 
     protected function buildPrompt(string $topic, string $tone): string
     {
-        return "Write a blog post for a construction company about: \"{$topic}\". "
-            . "Tone: {$tone}. Audience: homeowners and commercial clients researching construction services. "
-            . 'Include practical insights and at least one actionable tip. Return JSON only.';
+        return <<<PROMPT
+Write a complete blog post about: "{$topic}"
+Tone: {$tone}
+
+Use this EXACT format:
+
+TITLE: [compelling title here]
+
+EXCERPT: [1-2 sentence summary here]
+
+CONTENT:
+[full blog post in HTML using <h2>, <p>, <ul>, <li> tags — minimum 400 words]
+
+Only output these three sections. No extra text before or after.
+PROMPT;
+    }
+
+    protected function parseResponse(string $text, string $topic): array
+    {
+        $title = $topic;
+        $excerpt = '';
+        $content = '';
+
+        if (preg_match('/TITLE:\s*(.+?)(?:\n|$)/i', $text, $matches)) {
+            $title = trim($matches[1]);
+        }
+
+        if (preg_match('/EXCERPT:\s*(.+?)(?=CONTENT:|$)/is', $text, $matches)) {
+            $excerpt = trim($matches[1]);
+        }
+
+        if (preg_match('/CONTENT:\s*(.+)/is', $text, $matches)) {
+            $content = trim($matches[1]);
+        }
+
+        if (empty($content)) {
+            $content = '<p>' . nl2br(htmlspecialchars($text)) . '</p>';
+        }
+
+        return compact('title', 'excerpt', 'content');
     }
 }
