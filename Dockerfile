@@ -33,7 +33,9 @@ RUN chmod -R 775 storage bootstrap/cache public/css
 EXPOSE 8080
 
 # Start command
-CMD php artisan config:cache && \
-    php artisan route:cache && \
-    php artisan storage:link && \
+CMD mkdir -p database && \
+    touch database/database.sqlite && \
+    php artisan migrate --force && \
+    php artisan db:seed --force && \
+    php artisan storage:link --force && \
     php artisan serve --host=0.0.0.0 --port=$PORT
