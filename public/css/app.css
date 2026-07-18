@@ -1,6 +1,11 @@
 :root {
     --bs-primary: #f4671e;
     --bs-primary-rgb: 244, 103, 30;
+    --bs-primary-text-emphasis: #d9550f;
+    --bs-primary-bg-subtle: rgba(244, 103, 30, 0.12);
+    --bs-link-color: #f4671e;
+    --bs-link-color-rgb: 244, 103, 30;
+    --bs-link-hover-color: #d9550f;
     --navy: #0f1b2d;
     --navy-light: #1c3554;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -16,31 +21,48 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .btn-primary {
-    background-color: var(--bs-primary);
-    border-color: var(--bs-primary);
+    --bs-btn-bg: #f4671e;
+    --bs-btn-border-color: #f4671e;
+    --bs-btn-hover-bg: #d9550f;
+    --bs-btn-hover-border-color: #d9550f;
+    --bs-btn-active-bg: #d9550f;
+    --bs-btn-active-border-color: #d9550f;
+    --bs-btn-disabled-bg: #f4671e;
+    --bs-btn-disabled-border-color: #f4671e;
+    background-color: #f4671e !important;
+    border-color: #f4671e !important;
+    color: #fff !important;
 }
 
-.btn-primary:hover, .btn-primary:focus {
-    background-color: #d9550f;
-    border-color: #d9550f;
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+    background-color: #d9550f !important;
+    border-color: #d9550f !important;
+    color: #fff !important;
 }
 
 .btn-outline-primary {
-    color: var(--bs-primary);
-    border-color: var(--bs-primary);
+    --bs-btn-color: #f4671e;
+    --bs-btn-border-color: #f4671e;
+    --bs-btn-hover-bg: #f4671e;
+    --bs-btn-hover-border-color: #f4671e;
+    --bs-btn-hover-color: #fff;
+    color: #f4671e !important;
+    border-color: #f4671e !important;
 }
 
 .btn-outline-primary:hover {
-    background-color: var(--bs-primary);
-    border-color: var(--bs-primary);
+    background-color: #f4671e !important;
+    color: #fff !important;
 }
 
 .text-primary {
-    color: var(--bs-primary) !important;
+    color: #f4671e !important;
 }
 
 .bg-primary {
-    background-color: var(--bs-primary) !important;
+    background-color: #f4671e !important;
 }
 
 .bg-primary-subtle {
@@ -49,6 +71,14 @@ h1, h2, h3, h4, h5, h6 {
 
 .bg-navy {
     background-color: var(--navy) !important;
+}
+
+.border-primary {
+    border-color: #f4671e !important;
+}
+
+.badge.bg-primary {
+    background-color: #f4671e !important;
 }
 
 a {
@@ -64,12 +94,12 @@ a {
 
 .navbar .nav-link.active,
 .navbar .nav-link:hover {
-    color: var(--bs-primary);
+    color: #f4671e !important;
 }
 
 /* Stats counter strip */
 .stats-strip {
-    background-color: var(--bs-primary);
+    background-color: #f4671e !important;
 }
 
 .stats-strip .stat-number {
@@ -126,8 +156,8 @@ a {
 
 /* Accordion (FAQ) */
 .accordion-button:not(.collapsed) {
-    color: var(--bs-primary);
-    background-color: rgba(244, 103, 30, 0.08);
+    color: #f4671e !important;
+    background-color: rgba(244, 103, 30, 0.08) !important;
 }
 
 .accordion-button:focus {
@@ -142,7 +172,7 @@ a {
 }
 
 .section-title-eyebrow {
-    color: var(--bs-primary);
+    color: #f4671e !important;
     font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
