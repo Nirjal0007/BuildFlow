@@ -379,6 +379,8 @@ footer .btn-outline-light {
     z-index: 100;
     scrollbar-width: thin;
     scrollbar-color: rgba(255,255,255,0.2) transparent;
+    display: flex;
+    flex-direction: column;
 }
 
 .admin-sidebar::-webkit-scrollbar {
@@ -394,6 +396,12 @@ footer .btn-outline-light {
     border-radius: 4px;
 }
 
+.admin-sidebar .nav {
+    flex-direction: column !important;
+    flex-wrap: nowrap !important;
+    width: 100%;
+}
+
 .admin-sidebar .nav-link {
     color: rgba(255, 255, 255, 0.65);
     padding: 0.65rem 1.25rem;
@@ -405,6 +413,8 @@ footer .btn-outline-light {
     font-weight: 500;
     font-size: 0.9rem;
     transition: all 0.2s ease;
+    white-space: nowrap;
+    width: calc(100% - 1.5rem);
 }
 
 .admin-sidebar .nav-link:hover,
@@ -416,6 +426,7 @@ footer .btn-outline-light {
 .admin-sidebar .nav-link i {
     width: 18px;
     font-size: 1rem;
+    flex-shrink: 0;
 }
 /* Admin main content offset for fixed sidebar */
 .admin-content {
