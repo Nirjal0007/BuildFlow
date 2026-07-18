@@ -22,6 +22,8 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
+COPY php.ini /usr/local/etc/php/conf.d/uploads.ini
+
 COPY . .
 
 RUN composer install --no-dev --optimize-autoloader --no-scripts --no-interaction
