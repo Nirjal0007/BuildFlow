@@ -79,7 +79,7 @@
         </aside>
 
         {{-- MAIN CONTENT --}}
-        <div class="flex-grow-1" style="min-width: 0;">
+        <div class="flex-grow-1" style="min-width: 0; margin-left: 260px;">
             <header class="bg-white border-bottom px-4 py-3 d-flex justify-content-between align-items-center">
                 <h4 class="fw-bold mb-0">@yield('title', 'Dashboard')</h4>
                 <div class="d-flex align-items-center gap-3">
